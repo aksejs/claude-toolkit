@@ -1,0 +1,59 @@
+# workflow-lint.yml — static checks for Claude Code dynamic workflow scripts.
+#
+# Usage:
+#   semgrep --config workflow-lint.yml your-workflow.js
+#
+# Catches sandbox violations that make a workflow throw at runtime or silently
+# break resume. Structural rules (barrier misuse, missing schema, unguarded
+# budget loops) are roadmap — they need AST analysis and will ship as ESLint
+# custom rules. See the plugin README.
+
+rules:
+  - id: workflow-no-date-now
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >-
+      Date.now() is banned in dynamic workflow scripts — it breaks resume.
+      Pass timestamps in via `args`, or stamp results after the workflow returns.
+    pattern: Date.now()
+
+  - id: workflow-no-new-date
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >-
+      Argless `new Date()` is banned in workflow scripts — it breaks resume.
+      Pass a timestamp via `args` and construct dates from it.
+    pattern: new Date()
+
+  - id: workflow-no-math-random
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >-
+      Math.random() is banned in workflow scripts — it breaks resume.
+      Vary agent prompts/labels by index instead of using randomness.
+    pattern: Math.random()
+
+  - id: workflow-no-filesystem
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >-
+      Workflow scripts have no filesystem access. Do file I/O inside an agent()
+      (agents have tools); keep the orchestration script pure.
+    pattern-either:
+      - pattern: require('fs')
+      - pattern: require('node:fs')
+      - pattern: require('fs/promises')
+      - pattern: import $X from 'fs'
+      - pattern: import $X from 'node:fs'
+
+  - id: workflow-no-shell
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >-
+      Workflow scripts cannot spawn processes. Run shell or tools inside an
+      agent() instead of in the orchestration script.
+    pattern-either:
+      - pattern: require('child_process')
+      - pattern: require('node:child_process')
+      - pattern: import $X from 'child_process'
+      - pattern: import $X from 'node:child_process'

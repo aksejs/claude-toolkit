@@ -1,0 +1,10 @@
+{
+  "name": "dynamic-workflows-toolkit",
+  "version": "0.1.0",
+  "description": "Author, lint, and ship Claude Code dynamic workflows.",
+  "author": {
+    "name": "Stefan B"
+  },
+  "homepage": "https://github.com/aksejs/claude-toolkit",
+  "keywords": ["dynamic-workflows", "workflows", "orchestration", "subagents", "linter"]
+}
