@@ -1,6 +1,6 @@
 {
   "name": "dynamic-workflows-toolkit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Author, lint, and ship Claude Code dynamic workflows.",
   "author": {
     "name": "Stefan B"

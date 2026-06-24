@@ -1,0 +1,19 @@
+{
+  "name": "eslint-plugin-workflow-lint",
+  "version": "0.1.0",
+  "description": "ESLint rules for Claude Code dynamic workflow scripts.",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "node tests/rules.test.js",
+    "lint:example": "eslint fixtures/"
+  },
+  "peerDependencies": {
+    "eslint": ">=9"
+  },
+  "devDependencies": {
+    "@babel/core": "^7",
+    "@babel/eslint-parser": "^7",
+    "eslint": "^9"
+  }
+}
