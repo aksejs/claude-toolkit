@@ -8,7 +8,7 @@
       "name": "dynamic-workflows-toolkit",
       "source": "./plugins/dynamic-workflows-toolkit",
       "description": "Author, lint, and ship Claude Code dynamic workflows — a writing-workflows skill plus a workflow linter.",
-      "version": "0.2.0"
+      "version": "0.3.0"
     }
   ]
 }

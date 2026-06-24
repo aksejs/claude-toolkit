@@ -12,6 +12,10 @@ Tools for authoring, linting, and shipping [Claude Code dynamic workflows](https
 - **semgrep** `skills/reviewing-workflows/workflow-lint.yml` — sandbox bans (`Date.now` / argless `new Date` / `Math.random` / `fs` / `child_process`).
 - **ESLint** `lint/` — structural rules semgrep can't do: `require-meta-export`, `meta-literal`, `budget-loop-guard`. Tested with `RuleTester` + realistic good/bad fixtures (`cd lint && npm install && npm test`).
 
+## Examples (`examples/`)
+
+- **[beads-swarm.js](examples/beads-swarm.js)** — a beads-aware worker-swarm that drains a ready-queue via atomic claim. Verified lint-clean by the linters above.
+
 ## Install
 
 ```
@@ -31,8 +35,8 @@ Dynamic workflows are JavaScript, so — unlike prose skills — they can be **v
 - [x] semgrep sandbox-ban ruleset
 - [x] ESLint `require-meta-export`, `meta-literal`, `budget-loop-guard` — with `RuleTester` fixtures and verified good/bad example workflows
 - [x] `@babel/eslint-parser` config so real workflows (ESM export + top-level `await`/`return`) actually parse
+- [x] Example workflow: beads-aware queue-draining swarm ([examples/beads-swarm.js](examples/beads-swarm.js)) — dogfooded lint-clean
 - [ ] ESLint data-flow rules: `filter-boolean-after-parallel`, `agent-result-needs-schema` (need scope/data-flow analysis)
 - [ ] Mock-runner: dry-run a workflow with stubbed `agent()` / `parallel()` / `pipeline()` for zero-token control-flow validation
-- [ ] Example workflows (incl. a beads-aware queue-draining swarm)
 
 > Deliberately not built: a `prefer-pipeline-over-parallel` rule — barrier misuse isn't statically decidable without false positives, so it lives in the `writing-workflows` guidance instead.
